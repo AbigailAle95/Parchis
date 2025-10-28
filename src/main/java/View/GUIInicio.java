@@ -94,7 +94,7 @@ public class GUIInicio extends javax.swing.JFrame
 
         jComboBox1.setBackground(new java.awt.Color(51, 51, 255));
         jComboBox1.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Azul", "Verde", "Amarillo", "Rojo" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Rojo", "Amarillo", "Azul", "Verder" }));
         getContentPane().add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 70, 160, 40));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgInicio_1.png"))); // NOI18N
@@ -125,6 +125,8 @@ public class GUIInicio extends javax.swing.JFrame
 
     private void btnStart(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStart
         GUIJuego demo = new GUIJuego ();
+        demo.setVisible(true);
+        demo.setLocationRelativeTo(null);
     }//GEN-LAST:event_btnStart
 
 
