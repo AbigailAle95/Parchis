@@ -85,10 +85,6 @@ public class TableroCoordenadas {
         
      };
     
-    private int salida_Amarillo = 5 ;
-    private int salida_Azul = 22 ;
-    private int salida_Rojo = 39 ;
-    private int salida_verde = 56 ;
 
     //Falta las coordenadas de camino win ( 7 casillas)
     // las coordenadas del win son temporables, hay que poder las de mi codigo
