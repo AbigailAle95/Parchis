@@ -2,6 +2,8 @@ package View;
 import java.awt. Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JLabel;
+import model.TableroCoordenadas;
 
 
 
@@ -15,21 +17,45 @@ public class PanelTablero extends javax.swing.JPanel
     /**
      * Creates new form PanelTablero
      */
+    
+    private TableroCoordenadas tablero;
     public PanelTablero() {
         initComponents();
-        this.addMouseListener(new MouseAdapter() {
-            @Override
-            //MouseEvent
-            public void mousePressed(MouseEvent e) {
-                Point p = e.getPoint();
-                moverFicha(p);
-            }
-        });}
-    public void moverFicha(Point p){
-        //Clase point
-        imgFicha.setLocation(p);
-        System.out.println("Coordenadas : " + p.x + " , " + p.y);
-    }//fin del metodo moverFicha
+        
+        
+//        this.addMouseListener(new MouseAdapter() {
+//            @Override
+//            //MouseEvent
+//            public void mousePressed(MouseEvent e) {
+//                Point p = e.getPoint();
+//                moverFicha(p);
+//            }
+//        });
+    }
+
+    public JLabel getImgFicha() {
+        return imgFicha;
+    }
+
+    public JLabel getImgFicha2() {
+        return imgFicha2;
+    }
+
+    public JLabel getImgFicha3() {
+        return imgFicha3;
+    }
+
+    public JLabel getImgFicha4() {
+        return imgFicha4;
+    }
+    public void setTablero(TableroCoordenadas tablero){
+        this.tablero = tablero;
+    }
+//    public void moverFicha(Point p){
+//        //Clase point
+//        imgFicha.setLocation(p);
+//        System.out.println("Coordenadas : " + p.x + " , " + p.y);
+//    }//fin del metodo moverFicha
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -63,7 +89,27 @@ public class PanelTablero extends javax.swing.JPanel
         imgTablero.setIcon(new javax.swing.ImageIcon(getClass().getResource("/tablerografico.png"))); // NOI18N
         add(imgTablero, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
-
+    public void moverFicha (int colorId, int x, int y){
+        JLabel lbl = labelJugador(colorId);
+        if (lbl != null){
+            lbl.setLocation(x, y);
+            lbl.repaint();
+            this.repaint();
+        }
+    }
+    
+    public JLabel labelJugador (int colorId){
+        if (colorId ==0){
+        return imgFicha;
+        }
+        if (colorId ==1){
+            return imgFicha3;
+        }
+        if (colorId ==2){
+            return imgFicha2;
+        }
+        return imgFicha4;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel imgFicha;

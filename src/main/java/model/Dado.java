@@ -28,4 +28,12 @@ public class Dado {
         return numero;
     }
     ;
+    public int dadoAleatorio(){
+        numero = random.nextInt(6) + 1;
+        System.out.print("sacó:" + numero);
+        return numero;
+    }
+    public int getDado(){
+        return numero;
+    }
 }

@@ -4,6 +4,9 @@
  */
 package View;
 
+import javax.swing.JButton;
+import javax.swing.JLabel;
+
 /**
  *
  * @author abiga
@@ -17,6 +20,22 @@ public class PanelControl extends javax.swing.JPanel {
         initComponents();
     }
 
+    public JButton getBtnDado() {
+        return btnDado;
+    }
+
+    public JButton getBtnReinicio() {
+        return btnReinicio;
+    }
+    
+    public void setTxtNumeroDado(int  Numero) {
+        this.txtNumeroDado.setText("Resultado Dado: "+ Numero);
+    }
+
+    public void setTxtTurnoJugador(String txtTurno) {
+        this.txtTurnoJugador.setText("Turno Juagdor: "+ txtTurno);
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -26,60 +45,59 @@ public class PanelControl extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        txtNumeroDado = new javax.swing.JLabel();
+        txtTurnoJugador = new javax.swing.JLabel();
+        btnDado = new javax.swing.JButton();
+        btnReinicio = new javax.swing.JButton();
+        btnMenu = new javax.swing.JButton();
 
-        jButton1.setText("Dado");
+        txtNumeroDado.setText("Número Dado");
 
-        jLabel1.setText("Numero Dado");
+        txtTurnoJugador.setText("Turno Jugador");
 
-        jLabel2.setText("Ficha Turno");
+        btnDado.setText("Dado");
 
-        jButton2.setText("Reinicio");
-        jButton2.setActionCommand("");
+        btnReinicio.setText("Reinicio");
 
-        jButton3.setText("Menú");
+        btnMenu.setText("Menú");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton3)
-                    .addComponent(jButton2)
-                    .addComponent(jButton1)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2))
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addGap(28, 28, 28)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnDado)
+                    .addComponent(btnMenu)
+                    .addComponent(btnReinicio)
+                    .addComponent(txtTurnoJugador)
+                    .addComponent(txtNumeroDado))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButton1)
-                .addGap(31, 31, 31)
-                .addComponent(jLabel1)
-                .addGap(32, 32, 32)
-                .addComponent(jLabel2)
-                .addGap(32, 32, 32)
-                .addComponent(jButton2)
-                .addGap(41, 41, 41)
-                .addComponent(jButton3)
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(btnDado)
+                .addGap(48, 48, 48)
+                .addComponent(txtNumeroDado)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtTurnoJugador)
+                .addGap(36, 36, 36)
+                .addComponent(btnReinicio)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                .addComponent(btnMenu)
+                .addGap(31, 31, 31))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JButton btnDado;
+    private javax.swing.JButton btnMenu;
+    private javax.swing.JButton btnReinicio;
+    private javax.swing.JLabel txtNumeroDado;
+    private javax.swing.JLabel txtTurnoJugador;
     // End of variables declaration//GEN-END:variables
 }
