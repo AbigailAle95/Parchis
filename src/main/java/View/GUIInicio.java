@@ -4,17 +4,15 @@
  */
 package View;
 
-import View.GUICreditos;
-import View.GUIHistoria;
-import View.GUIInstrucciones;
+import Controller.ControladorJuego;
+import View.GUIJuego;
 
 /**
  *
  * @author abiga
  */
-public class GUIInicio extends javax.swing.JFrame 
-{
-    
+public class GUIInicio extends javax.swing.JFrame {
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(GUIInicio.class.getName());
 
     /**
@@ -35,11 +33,11 @@ public class GUIInicio extends javax.swing.JFrame
 
         jCheckBoxMenuItem1 = new javax.swing.JCheckBoxMenuItem();
         jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        Jugar = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        comboColor = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
 
         jCheckBoxMenuItem1.setSelected(true);
@@ -53,14 +51,14 @@ public class GUIInicio extends javax.swing.JFrame
         jLabel2.setText("Seleccion de color ");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 20, -1, -1));
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/boton.png"))); // NOI18N
-        jButton1.setContentAreaFilled(false);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        Jugar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/boton.png"))); // NOI18N
+        Jugar.setContentAreaFilled(false);
+        Jugar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnStart(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 150, -1, -1));
+        getContentPane().add(Jugar, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 150, -1, -1));
 
         jButton2.setBackground(new java.awt.Color(51, 51, 255));
         jButton2.setText("Historia");
@@ -92,10 +90,15 @@ public class GUIInicio extends javax.swing.JFrame
         });
         getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 330, 160, 40));
 
-        jComboBox1.setBackground(new java.awt.Color(51, 51, 255));
-        jComboBox1.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Rojo", "Amarillo", "Azul", "Verder" }));
-        getContentPane().add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 70, 160, 40));
+        comboColor.setBackground(new java.awt.Color(51, 51, 255));
+        comboColor.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
+        comboColor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Rojo", "Amarillo", "Azul", "Verder" }));
+        comboColor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboColorActionPerformed(evt);
+            }
+        });
+        getContentPane().add(comboColor, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 70, 160, 40));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imgInicio_1.png"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -104,39 +107,76 @@ public class GUIInicio extends javax.swing.JFrame
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnHistoria(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistoria
-        GUIHistoria demo = new GUIHistoria ();
+        GUIHistoria demo = new GUIHistoria();
         demo.setVisible(true);
         demo.setLocationRelativeTo(null);
     }//GEN-LAST:event_btnHistoria
 
     private void btnInstrucciones(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInstrucciones
-        GUIInstrucciones demo = new GUIInstrucciones ();
+        GUIInstrucciones demo = new GUIInstrucciones();
         demo.setVisible(true);
         demo.setLocationRelativeTo(null);
-                                
+
     }//GEN-LAST:event_btnInstrucciones
 
     private void btnCreditos(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreditos
-        GUICreditos demo = new GUICreditos ();
+        GUICreditos demo = new GUICreditos();
         demo.setVisible(true);
         demo.setLocationRelativeTo(null);
-                             
+
     }//GEN-LAST:event_btnCreditos
 
     private void btnStart(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStart
-        GUIJuego demo = new GUIJuego ();
-        demo.setVisible(true);
-        demo.setLocationRelativeTo(null);
+//        GUIJuego demo = new GUIJuego ();
+//        demo.setVisible(true);
+//        demo.setLocationRelativeTo(null);
+//        
+//        int idCombo = comboColor.getSelectedIndex();
+//        int colorId = 0;
+//                if (idCombo == 0){
+//                    colorId = 0;//rojo
+//                }else if (idCombo == 1){
+//                    colorId = 1;//Amarillo
+//                }//Los colores que faltan
+//                new Controller.ControladorJuego (demo.getPanelControl1(), demo.getPanelTablero1(), colorId);
+//                this.setVisible(false);
+
+        int idCombo = comboColor.getSelectedIndex();
+        int colorId = 0;
+
+        if (idCombo == 0) {
+            colorId = 0;
+        }//fin if
+        else if (idCombo == 1) {
+            colorId = 1;
+        }//fin if
+        else if (idCombo == 2) {
+            colorId = 2;
+        }//fin if
+        else if (idCombo == 3) {
+            colorId = 3;
+        }//fin if
+
+        ControladorJuego control = new ControladorJuego(colorId);
+        GUIJuego juego = new GUIJuego();
+        juego.setVisible(true);
+        juego.setLocationRelativeTo(null);
+//        new controller.ControladorJuego(juego.getPanelControl1(), juego.getPanelTablero1(), colorId);
+        this.setVisible(false);
     }//GEN-LAST:event_btnStart
+
+    private void comboColorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboColorActionPerformed
+
+    }//GEN-LAST:event_comboColorActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton Jugar;
+    private javax.swing.JComboBox<String> comboColor;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables

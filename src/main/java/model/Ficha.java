@@ -16,6 +16,7 @@ public class Ficha {
     private boolean poseInicial;
     private boolean caminoWin;
     private int pasoWin;
+    private int puntos;
 
     public Ficha(int pColor) {
         color = pColor;
@@ -26,9 +27,12 @@ public class Ficha {
         poseInicial = true;
         caminoWin = true;
         pasoWin = 0;
+        
     }//Fin de constructor
 
     //get y set
+    
+    
     public int getColor() {
         return color;
     }
@@ -93,11 +97,24 @@ public class Ficha {
         this.pasoWin = pasoWin;
     }
 
+    public int getPuntos() {
+        return puntos;
+    }
+
+    public void setPuntos(int valor) {
+        if (puntos > 0){
+            puntos = puntos + valor;
+        }
+    }
+    public void restarpuntos (int valor){
+        
+    }
+
     public void reset() {
         indice = -1;
         pasoWin = 0;
-        poseInicial = true;
-        caminoWin = true;
+        poseInicial = true;// en casa
+        caminoWin = false;//
     }
 
 }

@@ -27,13 +27,22 @@ public class PanelControl extends javax.swing.JPanel {
     public JButton getBtnReinicio() {
         return btnReinicio;
     }
-    
-    public void setTxtNumeroDado(int  Numero) {
-        this.txtNumeroDado.setText("Resultado Dado: "+ Numero);
+
+    public void setTxtNumeroDado(int Numero) {
+        this.txtNumeroDado.setText("Resultado Dado: " + Numero);
     }
 
     public void setTxtTurnoJugador(String txtTurno) {
-        this.txtTurnoJugador.setText("Turno Juagdor: "+ txtTurno);
+        txtTurnoJugador.setText("Turno Juagdor: " + txtTurno);
+    }
+
+    public JLabel getTxtTiempo() {
+        return txtTiempo;
+    }
+//Set para el label del tiempo 
+
+    public void setTxtTiempo(int valor) {
+        txtTiempo.setText("Tiempo:" + valor);
     }
 
     /**
@@ -50,6 +59,9 @@ public class PanelControl extends javax.swing.JPanel {
         btnDado = new javax.swing.JButton();
         btnReinicio = new javax.swing.JButton();
         btnMenu = new javax.swing.JButton();
+        txtTiempo = new javax.swing.JLabel();
+        txtPuntosJugador = new javax.swing.JLabel();
+        txtPuntosOponente = new javax.swing.JLabel();
 
         txtNumeroDado.setText("Número Dado");
 
@@ -61,19 +73,34 @@ public class PanelControl extends javax.swing.JPanel {
 
         btnMenu.setText("Menú");
 
+        txtTiempo.setText("Tiempo:");
+
+        txtPuntosJugador.setText("Puntos J:");
+
+        txtPuntosOponente.setText("Puntos O:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnDado)
-                    .addComponent(btnMenu)
-                    .addComponent(btnReinicio)
-                    .addComponent(txtTurnoJugador)
-                    .addComponent(txtNumeroDado))
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnDado)
+                            .addComponent(btnMenu)
+                            .addComponent(btnReinicio)
+                            .addComponent(txtTurnoJugador)
+                            .addComponent(txtNumeroDado)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(47, 47, 47)
+                        .addComponent(txtTiempo)
+                        .addGap(32, 32, 32)
+                        .addComponent(txtPuntosJugador)
+                        .addGap(46, 46, 46)
+                        .addComponent(txtPuntosOponente)))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -86,9 +113,14 @@ public class PanelControl extends javax.swing.JPanel {
                 .addComponent(txtTurnoJugador)
                 .addGap(36, 36, 36)
                 .addComponent(btnReinicio)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                .addGap(37, 37, 37)
                 .addComponent(btnMenu)
-                .addGap(31, 31, 31))
+                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtTiempo)
+                    .addComponent(txtPuntosJugador)
+                    .addComponent(txtPuntosOponente))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -98,6 +130,9 @@ public class PanelControl extends javax.swing.JPanel {
     private javax.swing.JButton btnMenu;
     private javax.swing.JButton btnReinicio;
     private javax.swing.JLabel txtNumeroDado;
+    private javax.swing.JLabel txtPuntosJugador;
+    private javax.swing.JLabel txtPuntosOponente;
+    private javax.swing.JLabel txtTiempo;
     private javax.swing.JLabel txtTurnoJugador;
     // End of variables declaration//GEN-END:variables
 }

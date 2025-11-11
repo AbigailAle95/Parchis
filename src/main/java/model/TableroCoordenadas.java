@@ -8,6 +8,7 @@ package model;
  *
  * @author abiga
  */
+
 public class TableroCoordenadas {
     
     private int indice;
@@ -91,38 +92,57 @@ public class TableroCoordenadas {
     private int salida_verde = 56 ;
 
     //Falta las coordenadas de camino win ( 7 casillas)
-    // las coordenadas del win son temporables, hay que poder las de mi codigo
+    // las coordenadas del win son temporables, hay que poner las de mi codigo
     private Coordenadas [][] caminoWin = new Coordenadas[][]{
-        //Rojo
-        {
-        new Coordenadas(189, 413),//65
-        new Coordenadas(193, 440),//66
-        new Coordenadas(187, 463),//67
-        },
+        
         //Amarillo
         {
-        new Coordenadas(191, 323),//61
-        new Coordenadas(198, 342),//62
-        new Coordenadas(187, 364),//63
-        new Coordenadas(185, 388),//64
+        new Coordenadas(239,432),
+        new Coordenadas(242,410),
+        new Coordenadas(237, 392),
+        new Coordenadas(237,365),
+        new Coordenadas(240,344),
+        new Coordenadas(237,320),
+        new Coordenadas(239,293),
+        new Coordenadas(246,264),
         },
-        //Azul
-        {
-        new Coordenadas(79, 290),//55
-        new Coordenadas(103, 287),//56
-        new Coordenadas(128, 281),//57
-        new Coordenadas(147, 284),//58
-
-        },
-        //Verde
-        {
         
-        new Coordenadas(99, 173),//46
-        new Coordenadas(78, 176),//47
-        new Coordenadas(55, 171),//48
-        new Coordenadas(30, 169),//49
-        new Coordenadas(9, 173),//50
-        }      
+        {
+        //Azul
+        new Coordenadas(451,233),
+        new Coordenadas(428,232),
+        new Coordenadas(404,234),
+        new Coordenadas(379,230),
+        new Coordenadas(356,228),
+        new Coordenadas(331,227),
+        new Coordenadas(305,232),
+        new Coordenadas(277,233),
+        },
+        
+        {
+        //verde 
+        new Coordenadas(31,232),
+        new Coordenadas(55,233),
+        new Coordenadas(77,232),
+        new Coordenadas(104,233),
+        new Coordenadas(127,233),
+        new Coordenadas(148,236),
+        new Coordenadas(172,232),
+        new Coordenadas(201,232),
+        },
+
+        {
+        //rojo
+        new Coordenadas(243,16),
+        new Coordenadas(241,43),
+        new Coordenadas(235,61),
+        new Coordenadas(235,91),
+        new Coordenadas(241,116),
+        new Coordenadas(237,138),
+        new Coordenadas(243,163),
+        new Coordenadas(244,199),
+        }
+        
     };
 
     public int getCasillasTotal ()

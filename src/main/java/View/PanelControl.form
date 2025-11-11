@@ -16,16 +16,28 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="btnDado" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnMenu" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnReinicio" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtTurnoJugador" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtNumeroDado" min="-2" max="-2" attributes="0"/>
+          <Group type="102" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="btnDado" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnMenu" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnReinicio" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtTurnoJugador" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtNumeroDado" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
+                      <Component id="txtTiempo" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                      <Component id="txtPuntosJugador" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
+                      <Component id="txtPuntosOponente" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
-              <EmptySpace pref="28" max="32767" attributes="0"/>
+              <EmptySpace pref="36" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -40,9 +52,15 @@
               <Component id="txtTurnoJugador" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
               <Component id="btnReinicio" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="42" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
               <Component id="btnMenu" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="txtTiempo" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtPuntosJugador" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtPuntosOponente" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="22" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -71,6 +89,21 @@
     <Component class="javax.swing.JButton" name="btnMenu">
       <Properties>
         <Property name="text" type="java.lang.String" value="Men&#xfa;"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="txtTiempo">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Tiempo:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="txtPuntosJugador">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Puntos J:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="txtPuntosOponente">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Puntos O:"/>
       </Properties>
     </Component>
   </SubComponents>
