@@ -106,8 +106,49 @@ public class Ficha {
             puntos = puntos + valor;
         }
     }
-    public void restarpuntos (int valor){
-        
+    
+    
+    // Métodos para puntos (Fase 3) 
+    /**
+     * Aumenta puntos
+     */
+    public void sumarPuntos(int valor) {
+        if (valor > 0) {
+            puntos = puntos + valor;
+        }
+    }
+
+    /**
+     * Resta puntos
+     */
+    public void restarPuntos(int valor) {
+        if (valor > 0) {
+            puntos = puntos - valor;
+            if (puntos < 0) {
+                puntos = 0;
+            }
+        }
+    }
+
+    /**
+     * Verifica si la ficha se quedó sin puntos.
+     */
+    public boolean sinPuntos() {
+        return puntos <= 0;
+    }
+    
+    public void reiniciarPuntos(){
+        puntos = 6;
+    }
+
+    /**
+     * Envía la ficha nuevamente a casa.
+     */
+    public void enviarHome() {
+        indice = -1;
+        pasoWin = 0;
+        poseInicial = true;
+        caminoWin = false;
     }
 
     public void reset() {

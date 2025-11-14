@@ -2,202 +2,374 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Controller;
+package controller;
 
+import View.PanelControl;
+import View.PanelTablero;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Random;
-import model.*;//Se importan todas las clses del paquete
-import View.*;//Se importan todas las clses del paquete
+import model.*;
 
 /**
  *
- * @author abiga
+ * @author maria
+ *
  */
 public class ControladorJuego implements ActionListener {
 
-    //Atributos tipo objeto
-    //private GUIJuego gui;
+    // ---- vista ----
     private PanelControl panelControl;
     private PanelTablero panelTablero;
 
-    //Clase de coordenada del paquete model
+    // ---- modelo ----
     private TableroCoordenadas tablero;
     private CoordenadasHome home;
-
     private Reglas reglas;
+    private Colores colores;
+    private Dado dado;
 
-    //atributos tipo objeto (clase ficha)
     private Ficha jugador;
     private Ficha oponente;
 
-    //identifica el color de la fichas del jugador y el oponente 
+    // ---- colores ----
     private int colorJugadorId;
     private int colorOponenteId;
 
-    //Ayuda a identificar el turno del jugador 
-    private boolean turnoJugador = true;
+    // true = jugador, false = oponente
+    private boolean turno = true;
 
-    private Random random = new Random();
-    private Dado dado = new Dado(random, 0);
-    private Colores colores = new Colores();
+    //Fase 3
+    // Timer de turno (cuenta regresiva)
+    private Temporizador temporizador;
+    // preguntas
+    private int facil = 1;
+    private int media = 2;
+    private int dificil = 3;
 
-    //Constructor
-    public ControladorJuego(PanelControl panelControl, PanelTablero panelTablero, int pColorJugadorId) {
-        this.panelControl = panelControl;
-        this.panelTablero = panelTablero;
-        this.colorJugadorId = colorJugadorId;
+    // Preguntas
+    private Preguntas preguntas = new Preguntas();
+    //Fase 4
+    private Sonidos sonidos;
 
-        tablero = new TableroCoordenadas();
-        home = new CoordenadasHome();
+    // contructor para identificar el color con un id
+    public ControladorJuego(int colorId) {
+        iniciarModelo();
 
-        colorJugadorId = pColorJugadorId;
-        if (colorJugadorId < 0) {
+        // validamos el color para evitar errores (por si cae fuera de rango)
+        if (colorId < 0) {
             colorJugadorId = 0;
-        }
-        if (colorJugadorId < 3) {
+        } else if (colorId > 3) {
             colorJugadorId = 3;
+        } else {
+            colorId = colorJugadorId;
         }
-
-        if (colorJugadorId == 0) {
-            colorOponenteId = 1;
-        } else if (colorJugadorId == 1) {
-            colorOponenteId = 0;
-        } else if (colorJugadorId == 2) {
-            colorOponenteId = 3;
-        } else if (colorJugadorId == 3) {
-            colorOponenteId = 2;
-        }
+        colorOponenteId = emparejarColor(colorJugadorId);
 
         jugador = new Ficha(colorJugadorId);
         oponente = new Ficha(colorOponenteId);
+    }
 
-        //Listeners
+    //Llamar al modelo desde un metodo
+    private void iniciarModelo() {
+        tablero = new TableroCoordenadas();
+        home = new CoordenadasHome();
+        reglas = new Reglas();
+        colores = new Colores();
+        dado = new Dado(); // usa lanzar()
+        //Fase3
+        preguntas = new Preguntas();
+        //Fase 4
+        sonidos = new Sonidos();
+    }
+
+    //contar la vista a los paneles de la vista.
+    public void conectarVistas(PanelControl pc, PanelTablero pt) {
+        panelControl = pc;
+        panelTablero = pt;
+
+        // listeners (el controlador escucha los botones)
         panelControl.getBtnDado().addActionListener(this);
         panelControl.getBtnReinicio().addActionListener(this);
-        
-        //ubicar la ficahs de home
-        Coordenadas cJugador = home.getHome(colorJugadorId);
-        Coordenadas cOponente = home.getHome(colorJugadorId);
-        panelTablero.moverFicha(colorJugadorId, cJugador.getX(), cJugador.getY());
-        panelTablero.moverFicha(colorOponenteId, cOponente.getX(), cOponente.getY());
 
-        //Aquie se esta llamando al metodo set del texto o lebel de turno disponible del panel contro
-        panelControl.setTxtTurnoJugador("Turno jugador: " + new Colores().nombre(colorJugadorId));
-
+        // estado inicial en Interfaz gráfica
+        ubicarEnHome();
         panelControl.setTxtNumeroDado(0);
+        panelControl.setTxtTurnoJugador(colores.nombre(colorJugadorId));
+        panelControl.setTxtPuntosJugador(jugador.getPuntos());
+        panelControl.setTxtPuntosOponente(oponente.getPuntos());
+        panelControl.setTxtTiempo(0);
 
+        // temporizador global de partida (cuenta hacia arriba)
+        temporizador = new Temporizador(panelControl);
+        temporizador.start();
+
+        sonidos.musicaFondo();
     }
 
-    public void actualizarTurno() {
-        String nombreTurno;
-        if (turnoJugador) {
-            nombreTurno = colores.nombre(colorJugadorId);
+    //Emparejamiento
+    // 0<->1 (rojo-amarillo), 2<->3 (azul-verde)
+    private int emparejarColor(int id) {
+        switch (id) {
+            case 0:
+                return 1;
+            case 1:
+                return 0;
+            case 2:
+                return 3;
+            default:
+                return 2;
+        }
+    }
+
+    private void ubicarEnHome() {
+        Coordenadas cj = home.getHome(colorJugadorId);
+        Coordenadas co = home.getHome(colorOponenteId);
+        panelTablero.moverFicha(colorJugadorId, cj.getX(), cj.getY());
+        panelTablero.moverFicha(colorOponenteId, co.getX(), co.getY());
+    }
+
+    //Operador logico de negacion !
+    private void cambiarTurnoYActualizar() {
+        // alternar turno
+        turno = !turno; // (sin operador ternario, estilo simple)
+        // actualizar label del turno
+        String nombre;
+        if (turno) {
+            nombre = colores.nombre(colorJugadorId);
         } else {
-            nombreTurno = colores.nombre(colorJugadorId);
+            nombre = colores.nombre(colorOponenteId);
         }
-        panelControl.setTxtTurnoJugador(nombreTurno);
-    }//fin de metodo
-    
-    public void alternarTurno(){
-        if (turnoJugador){
-            turnoJugador = false;
-        }else{
-            turnoJugador = ;
+        panelControl.setTxtTurnoJugador(nombre);
+    }
+
+    // Metodo jugar, tiene la logica del juego
+    public void jugar() {
+        int textoDado = dado.lanzar();//usamos el metodo lanzar
+        panelControl.setTxtNumeroDado(textoDado);
+
+        Ficha actual;
+        int idColor;
+
+        if (turno) {
+            actual = jugador;
+            idColor = colorJugadorId;
+        } else {
+            actual = oponente;
+            idColor = colorOponenteId;
+        }
+
+        int estado = obtenerEstado(actual); // 0=casa, 1=ruta, 2=win
+
+        switch (estado) {
+            case 0: // en casa
+                EnCasa(actual, idColor, textoDado);
+                break;
+            case 1: // en ruta
+                EnRuta(actual, idColor, textoDado);
+                break;
+            case 2: // en camino win
+                EnWin(actual, idColor, textoDado);
+                break;
+            default:
+                break;
+        }
+
+        cambiarTurnoYActualizar();
+    }
+
+    private int obtenerEstado(Ficha f) {
+        if (f.isPoseInicial()) {
+            return 0; // casa
+        } else if (!f.isCaminoWin()) {
+            return 1; // ruta
+        } else {
+            return 2; // win
         }
     }
 
-    public void actualizarHomeGraficos() {
-        Coordenadas cJugador = home.getHome(colorJugadorId);
-        Coordenadas cOponente = home.getHome(colorJugadorId);
-        panelTablero.moverFicha(colorJugadorId, cJugador.getX(), cJugador.getY());
-        panelTablero.moverFicha(colorOponenteId, cOponente.getX(), cOponente.getY());
+    private void EnCasa(Ficha ficha, int idColor, int tiro) {
+        if (reglas.salir(tiro)) {
+            // al salir, recupera puntos iniciales
+            ficha.reiniciarPuntos();
+            panelControl.setTxtPuntosJugador(jugador.getPuntos());
+            panelControl.setTxtPuntosOponente(oponente.getPuntos());
+
+            //identificar las reglas
+            int salida = reglas.salidaId(idColor);
+
+            ficha.setIndice(salida);
+            ficha.setPoseInicial(false);
+            ficha.setCaminoWin(false);
+            ficha.setPasoWin(0);
+            moverFicha(ficha, idColor);
+
+            // en la salida (ruta) hay pregunta fácil
+            PreguntaFacil(ficha, idColor);
+        }
+        // si no sale, no se mueve (se cambia turno en jugar())
     }
 
+    private void EnRuta(Ficha ficha, int idColor, int tiro) {
+        int desde = ficha.getIndice();
+
+        if (reglas.posicionFichaEntrada(idColor, desde, tiro)) {
+            // entra al camino WIN (sin preguntas intermedias)
+            entrarEnWin(ficha, idColor);
+            return;
+        }
+        int nuevo = reglas.avanzar(desde, tiro);
+        ficha.setIndice(nuevo);
+        moverFicha(ficha, idColor);
+
+        // colisión en el arreglo principal
+        if (Colision()) {
+            PreguntaColisionMedia();
+            return;
+        }
+
+        // pregunta fácil en casilla normal
+        PreguntaFacil(ficha, idColor);
+    }
+
+    //fase 2 y 3
+    private void EnWin(Ficha f, int idColor, int tiro) {
+        int largo = tablero.AvanzarFicha(idColor);
+        int next = f.getPasoWin() + tiro;
+
+        if (next >= largo) {
+            // META
+            Coordenadas m = tablero.getMetas(idColor);
+            panelTablero.moverFicha(idColor, m.getX(), m.getY());
+            f.setPasoWin(largo - 1);
+
+            // META: pregunta difícil; si falla, HOME
+            PreguntaConReglas(f, idColor, dificil, true);
+        } else {
+            f.setPasoWin(next);
+            moverFichaWin(f, idColor, next);
+            // Camino WIN intermedio: sin preguntas
+            PreguntaConReglas(f, idColor, media, true);
+        }
+    }
+
+    private void entrarEnWin(Ficha f, int idColor) {
+        f.setCaminoWin(true);
+        f.setPasoWin(0);
+        moverFichaWin(f, idColor, 0);
+    }
+
+    private void moverFicha(Ficha f, int idColor) {
+        Coordenadas p = tablero.getPosicion(f.getIndice());
+        panelTablero.moverFicha(idColor, p.getX(), p.getY());
+    }
+
+    private void moverFichaWin(Ficha f, int idColor, int paso) {
+        Coordenadas p = tablero.getCaminoWin(idColor, paso);
+        panelTablero.moverFicha(idColor, p.getX(), p.getY());
+    }
+
+    //fase3
+    private boolean Colision() {
+        if (jugador.isPoseInicial() || oponente.isPoseInicial()) {
+            return false;
+        }
+        if (jugador.isCaminoWin() || oponente.isCaminoWin()) {
+            return false;
+        }
+        return jugador.getIndice() == oponente.getIndice();
+    }
+
+    private void PreguntaColisionMedia() {
+        // la ficha alcanzada es la que NO movió
+        Ficha alcanzada;
+        int idAlcanzada;
+
+        if (turno) { // movió jugador
+            alcanzada = oponente;
+            idAlcanzada = colorOponenteId;
+        } else {
+            alcanzada = jugador;
+            idAlcanzada = colorJugadorId;
+        }
+
+        PreguntaConReglas(alcanzada, idAlcanzada, media, true); // si falla -> HOME
+    }
+
+    private void PreguntaFacil(Ficha f, int idColor) {
+        PreguntaConReglas(f, idColor, facil, false);
+    }
+
+    private void PreguntaConReglas(Ficha f, int idColor, int dificultad, boolean mandarHomeSiFalla) {
+        boolean escucha = preguntas.preguntasVF(dificultad);
+
+        if (escucha) {
+            // sumar puntos según dificultad
+            if (dificultad == facil) {
+                f.sumarPuntos(1);
+            } else if (dificultad == media) {
+                f.sumarPuntos(2);
+            } else {
+                f.sumarPuntos(3);
+            }
+
+            sonidos.detenerFondo();
+            sonidos.ganar();
+            sonidos.musicaFondo();
+
+        } else {
+            // restar puntos según dificultad
+            if (dificultad == facil) {
+                f.restarPuntos(1);
+            } else if (dificultad == media) {
+                f.restarPuntos(2);
+            } else {
+                f.restarPuntos(3);
+            }
+
+            sonidos.detenerFondo();
+            sonidos.ganar();
+            sonidos.musicaFondo();
+
+            // si debe ir a home (meta/colisión) o se quedó sin puntos
+            if (mandarHomeSiFalla || f.sinPuntos()) {
+                f.enviarHome();
+                Coordenadas c = home.getHome(idColor);
+                panelTablero.moverFicha(idColor, c.getX(), c.getY());
+            }
+        }
+
+        // refrescar interfaz graficas de puntos
+        if (idColor == colorJugadorId) {
+            panelControl.setTxtPuntosJugador(f.getPuntos());
+        } else {
+            panelControl.setTxtPuntosOponente(f.getPuntos());
+        }
+    }
+
+    // Boton reiniciar y sus metodos
     public void reiniciar() {
         jugador.reset();
         oponente.reset();
         panelControl.setTxtNumeroDado(0);
-        actualizarHomeGraficos();
-        actualizarTurno();
-    }
-
-    public void Jugar() {
-        //Variable que viene de la clase dado para llamar el metodo
-        int step = dado.dadoAleatorio();
-        //usamos el set del número que viene del panel
-        panelControl.setTxtNumeroDado(step);
-
-        //Es un variable tipo objeto
-        Ficha actual;
-        int colorFicha;
-
-        if (turnoJugador) {
-            actual = jugador;
-            colorFicha = colorJugadorId;
-        } else {
-            actual = oponente;
-            colorFicha = colorOponenteId;
-        }
-
-        if (actual.isPoseInicial()) {
-            if (reglas.salir(step)) {
-                //actual es la clase ficha. Los metodos que aplicamos son:
-                //indice, setPosicionInicial, caminoWin, pasoWin.
-                int exit = reglas.salidaId(colorFicha);
-                actual.setIndice(exit);
-                actual.setPoseInicial(false);
-                actual.setCaminoWin(false);
-                actual.setPasoWin(0);
-                pintarRecorrido(actual, colorFicha);
-
-            } else {
-                //Metodos que existen en esta clase (ControladosJuego)
-                actualizarTurno();
-                alternarTurno();
-                return;
-            }}else if (!actual.isCaminoWin()) {
-                        //Cruza la entrada a camino win?
-                        int d = actual.getIndice();
-                        if (reglas.entradaWin(colorFicha, d)) {
-                            actual.setCaminoWin(true);
-                            actual.setPasoWin(0);
-                        }//termina el primer if del else if
-                        actualizarTurno();
-                        alternarTurno();
-                        return;
-                    }//Cierre del else if
-        //step es la variable de información
-        //Ya la ficha avanza por el camino Win
-        int newStep = actual.getPasoWin()+step;
-        actual.setPasoWin(newStep);
-        pintarCaminoWin(actual, colorFicha,step);
-        //Nosotros tenemos que hacer esto
-        //Aqui se pone una verificación de que la ficha esta en la meta y mandar un mansaje con el JOpane
-        //Ya llego a la meta
-        actualizarTurno();
-        alternarTurno();
-        }//Metodo jugar
-
-    
-
-    public void pintarRecorrido(Ficha ficha, int colorId) {
-        Coordenadas c = tablero.getPosicion(ficha.getIndice());
-        panelTablero.moverFicha(colorId, c.getX(), c.getY());
-    }
-
-    private void pintarCaminoWin(Ficha ficha, int colorId, int steps) {
-        Coordenadas c = tablero.getCaminoWin(colorId, steps);
-        panelTablero.moverFicha(colorId, c.getX(), c.getY());
+        panelControl.setTxtPuntosJugador(jugador.getPuntos());
+        panelControl.setTxtPuntosOponente(oponente.getPuntos());
+        turno = true;
+        ubicarEnHome();
+        cambiarTurnoYActualizar();
+        temporizador.reiniciar();
+        
+        sonidos.detenerFondo();
+        sonidos.musicaFondo();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        Object r = e.getSource();
-        if(r == panelControl.getBtnDado()){
-            Jugar();
-        }else if (r == panelControl.getBtnDado()){
-            
+        Object fuente = e.getSource();
+        if (fuente == panelControl.getBtnDado()) {
+            jugar();
+        } else if (fuente == panelControl.getBtnReinicio()) {
+            sonidos.click();
+            reiniciar();
         }
     }
 }

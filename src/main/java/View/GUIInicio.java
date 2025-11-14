@@ -4,8 +4,10 @@
  */
 package View;
 
-import Controller.ControladorJuego;
+import controller.ControladorJuego;
 import View.GUIJuego;
+import controller.ControladorJuego;
+import model.Sonidos;
 
 /**
  *
@@ -18,6 +20,9 @@ public class GUIInicio extends javax.swing.JFrame {
     /**
      * Creates new form GUIInicio
      */
+    
+    Sonidos sonidos = new Sonidos ();
+    
     public GUIInicio() {
         initComponents();
     }
@@ -34,9 +39,9 @@ public class GUIInicio extends javax.swing.JFrame {
         jCheckBoxMenuItem1 = new javax.swing.JCheckBoxMenuItem();
         jLabel2 = new javax.swing.JLabel();
         Jugar = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btnHistoria = new javax.swing.JButton();
+        btnCreditos = new javax.swing.JButton();
+        btnInstruc = new javax.swing.JButton();
         comboColor = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
 
@@ -60,35 +65,35 @@ public class GUIInicio extends javax.swing.JFrame {
         });
         getContentPane().add(Jugar, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 150, -1, -1));
 
-        jButton2.setBackground(new java.awt.Color(51, 51, 255));
-        jButton2.setText("Historia");
-        jButton2.setPreferredSize(new java.awt.Dimension(1, 27));
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnHistoria.setBackground(new java.awt.Color(51, 51, 255));
+        btnHistoria.setText("Historia");
+        btnHistoria.setPreferredSize(new java.awt.Dimension(1, 27));
+        btnHistoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnHistoria(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 270, 180, 40));
+        getContentPane().add(btnHistoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 270, 180, 40));
 
-        jButton3.setBackground(new java.awt.Color(51, 51, 255));
-        jButton3.setText("Creditos");
-        jButton3.setPreferredSize(new java.awt.Dimension(1, 27));
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnCreditos.setBackground(new java.awt.Color(51, 51, 255));
+        btnCreditos.setText("Creditos");
+        btnCreditos.setPreferredSize(new java.awt.Dimension(1, 27));
+        btnCreditos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCreditos(evt);
             }
         });
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 390, 120, 40));
+        getContentPane().add(btnCreditos, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 390, 120, 40));
 
-        jButton4.setBackground(new java.awt.Color(51, 51, 255));
-        jButton4.setText("Instrucciones");
-        jButton4.setPreferredSize(new java.awt.Dimension(1, 27));
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btnInstruc.setBackground(new java.awt.Color(51, 51, 255));
+        btnInstruc.setText("Instrucciones");
+        btnInstruc.setPreferredSize(new java.awt.Dimension(1, 27));
+        btnInstruc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnInstrucciones(evt);
             }
         });
-        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 330, 160, 40));
+        getContentPane().add(btnInstruc, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 330, 160, 40));
 
         comboColor.setBackground(new java.awt.Color(51, 51, 255));
         comboColor.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
@@ -110,13 +115,18 @@ public class GUIInicio extends javax.swing.JFrame {
         GUIHistoria demo = new GUIHistoria();
         demo.setVisible(true);
         demo.setLocationRelativeTo(null);
+        this.dispose();
+        sonidos.click();
+        sonidos.detenerFondo();
     }//GEN-LAST:event_btnHistoria
 
     private void btnInstrucciones(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInstrucciones
         GUIInstrucciones demo = new GUIInstrucciones();
         demo.setVisible(true);
         demo.setLocationRelativeTo(null);
-
+        this.setVisible(false);
+        sonidos.click();
+        sonidos.detenerFondo();
     }//GEN-LAST:event_btnInstrucciones
 
     private void btnCreditos(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreditos
@@ -127,42 +137,18 @@ public class GUIInicio extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCreditos
 
     private void btnStart(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStart
-//        GUIJuego demo = new GUIJuego ();
-//        demo.setVisible(true);
-//        demo.setLocationRelativeTo(null);
-//        
-//        int idCombo = comboColor.getSelectedIndex();
-//        int colorId = 0;
-//                if (idCombo == 0){
-//                    colorId = 0;//rojo
-//                }else if (idCombo == 1){
-//                    colorId = 1;//Amarillo
-//                }//Los colores que faltan
-//                new Controller.ControladorJuego (demo.getPanelControl1(), demo.getPanelTablero1(), colorId);
-//                this.setVisible(false);
 
-        int idCombo = comboColor.getSelectedIndex();
-        int colorId = 0;
 
-        if (idCombo == 0) {
-            colorId = 0;
-        }//fin if
-        else if (idCombo == 1) {
-            colorId = 1;
-        }//fin if
-        else if (idCombo == 2) {
-            colorId = 2;
-        }//fin if
-        else if (idCombo == 3) {
-            colorId = 3;
-        }//fin if
+        int colorId = comboColor.getSelectedIndex();
 
-        ControladorJuego control = new ControladorJuego(colorId);
-        GUIJuego juego = new GUIJuego();
-        juego.setVisible(true);
-        juego.setLocationRelativeTo(null);
-//        new controller.ControladorJuego(juego.getPanelControl1(), juego.getPanelTablero1(), colorId);
-        this.setVisible(false);
+        ControladorJuego ctrl = new ControladorJuego(colorId);
+
+        GUIJuego v2 = new GUIJuego(ctrl);   // <-- Pásalo por el constructor
+        v2.setLocationRelativeTo(null);
+        v2.setVisible(true);
+        this.dispose();
+        sonidos.click();
+        sonidos.detenerFondo();
     }//GEN-LAST:event_btnStart
 
     private void comboColorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboColorActionPerformed
@@ -172,10 +158,10 @@ public class GUIInicio extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Jugar;
+    private javax.swing.JButton btnCreditos;
+    private javax.swing.JButton btnHistoria;
+    private javax.swing.JButton btnInstruc;
     private javax.swing.JComboBox<String> comboColor;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JCheckBoxMenuItem jCheckBoxMenuItem1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

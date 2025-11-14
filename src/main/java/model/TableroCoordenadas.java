@@ -145,6 +145,17 @@ public class TableroCoordenadas {
         
     };
 
+    public Coordenadas [] metas = new Coordenadas []
+    {
+ 
+            new Coordenadas(239,199), //meta rojo
+            new Coordenadas(239,260), //meta amarillo
+            new Coordenadas(263,229), //meta azul
+            new Coordenadas(220,229) //meta verde
+
+    };//fin metas
+    
+    
     public int getCasillasTotal ()
     {
         return recorrido.length;
@@ -155,11 +166,18 @@ public class TableroCoordenadas {
         return recorrido[indice];
     
     }
+    
+    public Coordenadas getMetas (int colorId)
+    {
+        return metas[colorId];
+    }//fin getMetas
 
-    public void AvanzarFicha() {
-        if (indice < recorrido.length - 1 ) {
-            indice ++;
-        }
+    public int AvanzarFicha(int colorId) {
+//        if (indice < recorrido.length - 1 ) {
+//            indice ++;
+//        }
+
+          return caminoWin[colorId].length;
     }
     public void reiniciar (){
     indice = 0;

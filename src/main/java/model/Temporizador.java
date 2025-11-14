@@ -17,7 +17,7 @@ public class Temporizador extends Thread {
     private boolean activo;
     private int segundos;
 
-    public Temporizador(PanelControl panel, boolean activo, int segundos) {
+    public Temporizador(PanelControl panel) {
         this.panel = panel;
         this.activo = true;
         this.segundos = 0;

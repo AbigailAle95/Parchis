@@ -16,10 +16,12 @@ public class Preguntas {
     private Random random = new Random();
 
     //Son al reddedor de 15 preguntas entre los 3 niveles (Recordar cambiar las preguntas de los arreglos)
-    private String[][] facil = {{"System.out.println(''Texto'') imprime en pantalla?", "V"}};
+    private String[][] facil = {{"¿Ghost es una banda sueca formada en 2006", "V"}
+            , {"Ghost gano un Grammy por la canción Cirice en 2016","V"}
+            ,{"", ""}};
     //Hacer mas preguntas puede ser temas variados
 
-    private String[][] medias = {{"System.out.println(''Texto'') imprime en pantalla?", "V"}};
+    private String[][] medias = {{"El vocalista de la banda cambia de personaje entre Papa Emeritus y Cardinal Copia?", "V"}};
     //Hacer mas preguntas puede ser temas variados
 
     private String[][] dificiles = {{"System.out.println(''Texto'') imprime en pantalla?", "V"}};

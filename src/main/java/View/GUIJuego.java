@@ -4,6 +4,8 @@
  */
 package View;
 
+import controller.ControladorJuego;
+
 /**
  *
  * @author abiga
@@ -15,7 +17,7 @@ public class GUIJuego extends javax.swing.JFrame {
     /**
      * Creates new form GUIJuego
      */
-    public GUIJuego() {
+    public GUIJuego(ControladorJuego ctrl) {
         initComponents();
     }
 

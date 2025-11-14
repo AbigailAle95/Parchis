@@ -33,7 +33,7 @@ public class PanelControl extends javax.swing.JPanel {
     }
 
     public void setTxtTurnoJugador(String txtTurno) {
-        txtTurnoJugador.setText("Turno Juagdor: " + txtTurno);
+        txtTurnoJugador.setText("Turno Juagador: " + txtTurno);
     }
 
     public JLabel getTxtTiempo() {
@@ -43,6 +43,22 @@ public class PanelControl extends javax.swing.JPanel {
 
     public void setTxtTiempo(int valor) {
         txtTiempo.setText("Tiempo:" + valor);
+    }
+
+    public JLabel getTxtPuntosJugador() {
+        return txtPuntosJugador;
+    }
+
+    public void setTxtPuntosJugador(int valor) {
+        txtPuntosJugador.setText("Puntos de Jugador:" + valor);
+    }
+
+    public JLabel getTxtPuntosOponente() {
+        return txtPuntosOponente;
+    }
+
+    public void setTxtPuntosOponente(int valor) {
+        txtPuntosOponente.setText("Puntos de Oponente:" + valor);
     }
 
     /**
@@ -84,43 +100,48 @@ public class PanelControl extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(113, 113, 113)
+                .addComponent(btnDado)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(28, 28, 28)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnDado)
-                            .addComponent(btnMenu)
-                            .addComponent(btnReinicio)
-                            .addComponent(txtTurnoJugador)
-                            .addComponent(txtNumeroDado)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtNumeroDado)
+                            .addComponent(btnReinicio))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnMenu, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtTurnoJugador, javax.swing.GroupLayout.Alignment.TRAILING)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(47, 47, 47)
+                        .addGap(39, 39, 39)
                         .addComponent(txtTiempo)
-                        .addGap(32, 32, 32)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
                         .addComponent(txtPuntosJugador)
-                        .addGap(46, 46, 46)
+                        .addGap(54, 54, 54)
                         .addComponent(txtPuntosOponente)))
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addGap(43, 43, 43))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(18, 18, 18)
+                .addGap(17, 17, 17)
                 .addComponent(btnDado)
-                .addGap(48, 48, 48)
-                .addComponent(txtNumeroDado)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtTurnoJugador)
-                .addGap(36, 36, 36)
-                .addComponent(btnReinicio)
-                .addGap(37, 37, 37)
-                .addComponent(btnMenu)
-                .addGap(30, 30, 30)
+                .addGap(51, 51, 51)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtTiempo)
+                    .addComponent(txtNumeroDado)
+                    .addComponent(txtTurnoJugador))
+                .addGap(35, 35, 35)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnReinicio)
+                    .addComponent(btnMenu))
+                .addGap(29, 29, 29)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtPuntosOponente)
                     .addComponent(txtPuntosJugador)
-                    .addComponent(txtPuntosOponente))
-                .addContainerGap(22, Short.MAX_VALUE))
+                    .addComponent(txtTiempo))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
